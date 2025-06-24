@@ -62,11 +62,13 @@ class App {
 
   async renderPage() {
     const url = getActiveRoute();
-    const page = routes[url];
+    const route = routes[url];
+
+    const page = route();
 
     this.#content.innerHTML = await page.render();
     this.#setupNavigationList();
-    
+
     await page.afterRender();
   }
 }
