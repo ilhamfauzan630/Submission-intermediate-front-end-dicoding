@@ -1,0 +1,39 @@
+/* Write your styles more here */
+
+@media screen and (width > 1000px) {
+    .navigation-drawer {
+        min-height: auto;
+        width: auto;
+        padding: 0;
+        background-color: transparent;
+
+        flex-direction: row;
+        justify-content: space-between;
+
+        position: static;
+        box-shadow: none;
+        transform: translateX(0);
+    }
+
+    .nav-list {
+        flex-direction: row;
+    }
+
+    .nav-list li a {
+        display: inline-block;
+    }
+
+    .drawer-button {
+        display: none;
+    }
+}
+
+@media screen and (width < 640px) {
+    .login-form-container > *:first-child {
+        display: none;
+    }
+    
+    .register-form-container > *:first-child {
+        display: none;
+    }
+}
