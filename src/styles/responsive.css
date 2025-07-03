@@ -28,12 +28,22 @@
     }
 }
 
-@media screen and (width < 640px) {
+@media screen and (max-width: 700px) {
     .login-form-container > *:first-child {
         display: none;
     }
     
     .register-form-container > *:first-child {
         display: none;
+    }
+
+    .story-detail__image {
+        width: 400px;
+    }
+}
+
+@media screen and (min-width: 700px) and (max-width: 947px) {
+    .story-detail__image {
+        max-width: 600px;
     }
 }

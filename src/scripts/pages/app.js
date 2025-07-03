@@ -64,7 +64,17 @@ class App {
     const url = getActiveRoute();
     const route = routes[url];
 
+    if (!route) {
+      window.location.hash = '/login';
+      return;
+    }
+
     const page = route();
+
+    if (!page || typeof page.render !== 'function') {
+    console.warn('Page tidak valid atau redirect sedang terjadi.');
+    return;
+  }
 
     this.#content.innerHTML = await page.render();
     this.#setupNavigationList();
