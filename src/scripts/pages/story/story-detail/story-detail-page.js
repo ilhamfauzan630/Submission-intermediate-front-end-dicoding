@@ -1,4 +1,4 @@
-import { generateLoaderAbsoluteTemplate, generateStoryDetailTemplate } from "../../../template";
+import { generateLoaderAbsoluteTemplate, generateStoryDetailTemplate } from "../../../templates";
 import StoryDetailPresenter from "./story-detail-presenter";
 import * as StoryAPI from "../../../data/api";
 import { parseActivePathname } from "../../../routes/url-parser";

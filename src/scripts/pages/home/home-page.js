@@ -3,7 +3,7 @@ import {
   generateStoryItemTemplate,
   generateStoryListEmptyTemplate,
   generateStoryListErrorTemplate,
-} from '../../template';
+} from '../../templates';
 import HomePresenter from './home-presenter';
 import * as StoryAPI from '../../data/api';;
 

@@ -2,7 +2,7 @@ import routes from '../routes/routes';
 import { getActiveRoute } from '../routes/url-parser';
 import { generateUnauthenticatedNavigationListTemplate,
   generateAuthenticatedNavigationListTemplate
-} from '../template';
+} from '../templates';
 import { getAccessToken, getLogout } from '../utils/auth';
 
 class App {
