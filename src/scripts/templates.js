@@ -85,6 +85,7 @@ export function generateStoryDetailTemplate({
     createdAt,
     lat,
     lon,
+    placeName,
 }) {
     return `
         <div class="story-detail__header">
@@ -98,8 +99,15 @@ export function generateStoryDetailTemplate({
                 <i class="fas fa-calendar-alt"></i> ${showFormattedDate(createdAt, 'id-ID')}
             </div>
         </div>
+        <div class="story-detail__place-name">
+            ${placeName ? `<p class="story-detail__place-name-text">Lokasi: ${placeName}</p>` : ''}
+        </div>
         <div class="story-detail__location">
             ${lat && lon ? `<p class="story-detail__coordinates">Koordinat: ${lat}, ${lon}</p>` : ''}
         </div>
-    `;
+        <div class="location-map__container">
+            <div id="map" class="location-map"></div>
+            <div id="map-loading-container"></div>
+        </div>
+        `;
 }

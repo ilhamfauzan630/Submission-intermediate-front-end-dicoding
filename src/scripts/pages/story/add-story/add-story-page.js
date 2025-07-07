@@ -1,8 +1,9 @@
 import AddStoryPresenter from './add-story-presenter';
-import { convertBase64ToFile } from '../../../utils/index';
+import { convertBase64ToBlob } from '../../../utils/index';
 import * as StoryApi from '../../../data/api';
 import { generateLoaderAbsoluteTemplate } from '../../../templates';
 import Camera from '../../../utils/camera';
+import Map from '../../../utils/map';
 
 export default class AddStoryPage {
     #presenter;
@@ -10,6 +11,7 @@ export default class AddStoryPage {
     #camera;
     #isCameraOpen = false;
     #takenPhoto = null;
+    #map = null;
 
     async render() {
         return `
@@ -21,11 +23,11 @@ export default class AddStoryPage {
                         <div class="form-group">
                             <label for="photo">Foto</label>
                             <div class="add-story__photo__buttons">
-                                <button id="phto-input-button" class="btn btn--outline" type="button"> Ambil Gambar </button>
+                                <button id="photo-input-button" class="btn btn--outline" type="button"> Ambil Gambar </button>
                                 <input
-                                    id="documentations-input"
+                                    id="photo-input"
                                     class="add-form__photo__input"
-                                    name="documentations"
+                                    name="photo"
                                     type="file"
                                     accept="image/*"
                                     multiple
@@ -40,11 +42,20 @@ export default class AddStoryPage {
                                 <video id="camera-video" class="new-form__camera__video">
                                     Video stream not available.
                                 </video>
+
+                                <canvas id="camera-canvas" class="new-form__camera__canvas"></canvas>
                 
                                 <div class="new-form__camera__tools">
                                     <select id="camera-select"></select>
+                                    <div class="new-form__camera__tools_buttons">
+                                        <button id="camera-take-button" class="btn" type="button">
+                                        Ambil Gambar
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
+                            <div id="photo-taken-container" class="photo-preview"></div>
+
                         </div>
                         
                         <div class="form-group">
@@ -63,16 +74,16 @@ export default class AddStoryPage {
 
                                 <div class="add-form__location__lat-lng">
                                     <label for="lat">Latitude (opsional)</label>
-                                    <input type="number" id="lat" name="lat" step="any" value="-6.200000" />
+                                    <input type="number" id="lat" name="lat" step="any" value="-7.8343462" disabled/>
                                 
                                     <label for="lon">Longitude (opsional)</label>
-                                    <input type="number" id="lon" name="lon" step="any" value="106.816666" />
+                                    <input type="number" id="lon" name="lon" step="any" value="110.38125" disabled/>
                                 </div>
                             </div>
 
                         </div>
 
-                        <div id"submit-button-container">
+                        <div id="submit-button-container">
                             <button id="submit-button" class="btn" type="submit">Kirim Cerita</button>
                         </div>
                     </form>
@@ -98,7 +109,29 @@ export default class AddStoryPage {
             event.preventDefault();
 
             console.log('Form submitted:', this.#form);
-        })
+
+            const data = {
+                description: this.#form.elements.namedItem('description').value,
+                photo: this.#takenPhoto ? this.#takenPhoto.blob : null,
+                lat: this.#form.elements.namedItem('lat').value,
+                lon: this.#form.elements.namedItem('lon').value,
+            }
+
+            await this.#presenter.postNewStory(data);
+        });
+
+        document.getElementById('photo-input').addEventListener('change', async (event) => {
+            const insertingPicturesPromises = Object.values(event.target.files).map(async (file) => {
+                return await this.#addTakenPicture(file);
+            });
+            await Promise.all(insertingPicturesPromises);
+
+            await this.#populateTakenPicture();
+        });
+
+        document.getElementById('photo-input-button').addEventListener('click', () => {
+            this.#form.elements.namedItem('photo-input').click();
+        });
 
         const cameraContainer = document.getElementById('camera-container');
         document
@@ -121,7 +154,36 @@ export default class AddStoryPage {
     }
 
     async initialMap() {
-        // map
+        this.#map = await Map.build('#map', {
+            zoom: 15,
+            locate: true,
+        });
+
+        // Preparing marker for select coordinate
+        const centerCoordinate = this.#map.getCenter();
+
+        this.#updateLatLngInput(centerCoordinate.latitude, centerCoordinate.longitude);
+
+        const draggableMarker = this.#map.addMarker(
+            [centerCoordinate.latitude, centerCoordinate.longitude], {
+                draggable: 'true'
+            },
+        );
+        draggableMarker.addEventListener('move', (event) => {
+            const coordinate = event.target.getLatLng();
+            this.#updateLatLngInput(coordinate.lat, coordinate.lng);
+        });
+
+        this.#map.addMapEventListener('click', (event) => {
+            draggableMarker.setLatLng(event.latlng);
+
+            event.sourceTarget.flyTo(event.latlng);
+        });
+    }
+
+    #updateLatLngInput(latitude, longitude) {
+        this.#form.elements.namedItem('lat').value = latitude;
+        this.#form.elements.namedItem('lon').value = longitude;
     }
 
     #setupCamera() {
@@ -132,7 +194,55 @@ export default class AddStoryPage {
         this.#camera = new Camera({
             video: document.getElementById('camera-video'),
             cameraSelect: document.getElementById('camera-select'),
-        })
+            canvas: document.getElementById('camera-canvas'),
+        });
+
+        this.#camera.addCheeseButtonListener('#camera-take-button', async () => {
+            const image = await this.#camera.takePicture();
+            await this.#addTakenPicture(image);
+            await this.#populateTakenPicture();
+        });
+    }
+
+    async #addTakenPicture(image) {
+        let blob = image;
+
+        if (typeof image === 'string') {
+            blob = await convertBase64ToBlob(image, 'image/png');
+        }
+
+        this.#takenPhoto = {
+            id: `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
+            blob: blob,
+        };
+
+        // Tampilkan gambar
+        this.#populateTakenPicture();
+    }
+
+    async #populateTakenPicture() {
+        const picture = this.#takenPhoto;
+        const container = document.getElementById('photo-taken-container');
+
+        if (!picture) {
+            container.innerHTML = '';
+            return;
+        }
+
+        const imageUrl = URL.createObjectURL(picture.blob);
+
+        container.innerHTML = `
+            <div class="photo-preview__item">
+                <button type="button" data-deletepictureid="${picture.id}" class="photo-preview__delete-btn">
+                    <img src="${imageUrl}" alt="Foto diambil" width="300px">
+                </button>
+            </div>
+        `;
+
+        container.querySelector('button[data-deletepictureid]').addEventListener('click', () => {
+            this.#takenPhoto = null;
+            this.#populateTakenPicture();
+        });
     }
 
     storeSuccessfully(message) {

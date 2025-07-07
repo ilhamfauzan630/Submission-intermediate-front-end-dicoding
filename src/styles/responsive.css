@@ -46,4 +46,22 @@
     .story-detail__image {
         max-width: 600px;
     }
+
+    .story-item {
+        width: 300px;
+    }
+
+    .story-list {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .story-item {
+        width: 200px;
+    }
+
+    .story-list {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
 }

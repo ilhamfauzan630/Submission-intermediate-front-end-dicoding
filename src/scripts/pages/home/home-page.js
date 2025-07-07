@@ -57,18 +57,6 @@ export default class HomePage {
     document.getElementById('story-list').innerHTML = generateStoryListErrorTemplate(message);
   }
 
-  // async initialMap() {
-  //   // TODO: map initialization
-  // }
-
-  // showMapLoading() {
-  //   document.getElementById('map-loading-container').innerHTML = generateLoaderAbsoluteTemplate();
-  // }
-
-  // hideMapLoading() {
-  //   document.getElementById('map-loading-container').innerHTML = '';
-  // }
-
   showLoading() {
     document.getElementById('story-list-loading-container').innerHTML = generateLoaderAbsoluteTemplate();
   }
