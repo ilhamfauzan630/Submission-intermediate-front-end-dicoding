@@ -4,17 +4,22 @@ import { generateUnauthenticatedNavigationListTemplate,
   generateAuthenticatedNavigationListTemplate
 } from '../templates';
 import { getAccessToken, getLogout } from '../utils/auth';
+import { setupSkipToContent, transitionHelper } from '../utils';
 
 class App {
   #content = null;
   #drawerButton = null;
   #navigationDrawer = null;
+  #skipLinkButton;
 
-  constructor({ navigationDrawer, drawerButton, content }) {
+
+  constructor({ navigationDrawer, drawerButton, content, skipLinkButton }) {
     this.#content = content;
     this.#drawerButton = drawerButton;
     this.#navigationDrawer = navigationDrawer;
+    this.#skipLinkButton = skipLinkButton;
 
+    setupSkipToContent(this.#skipLinkButton, this.#content);
     this._setupDrawer();
   }
 
@@ -72,14 +77,23 @@ class App {
     const page = route();
 
     if (!page || typeof page.render !== 'function') {
-    console.warn('Page tidak valid atau redirect sedang terjadi.');
-    return;
-  }
+      console.warn('Page tidak valid atau redirect sedang terjadi.');
+      return;
+    }
 
-    this.#content.innerHTML = await page.render();
-    this.#setupNavigationList();
+    const transition = transitionHelper({
+      updateDOM: async () => {
+        this.#content.innerHTML = await page.render();
+        await page.afterRender();
+      },
+    });
 
-    await page.afterRender();
+    transition.ready.catch(console.error);
+    transition.updateCallbackDone.then(() => {
+      scrollTo({ top: 0, behavior: 'instant' });
+      this.#setupNavigationList();
+    });
+
   }
 }
 

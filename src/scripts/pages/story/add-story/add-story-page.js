@@ -21,7 +21,6 @@ export default class AddStoryPage {
                     <form id="story-form" enctype="multipart/form-data">
                     
                         <div class="form-group">
-                            <label for="photo">Foto</label>
                             <div class="add-story__photo__buttons">
                                 <button id="photo-input-button" class="btn btn--outline" type="button"> Ambil Gambar </button>
                                 <input
@@ -58,7 +57,7 @@ export default class AddStoryPage {
 
                         </div>
                         
-                        <div class="form-group">
+                        <div class="form-group description">
                             <label for="description">Deskripsi</label>
                             <textarea id="description" name="description" placeholder="Tulis deskripsi cerita..." required></textarea>
                         </div>
@@ -73,11 +72,15 @@ export default class AddStoryPage {
                                 </div>
 
                                 <div class="add-form__location__lat-lng">
-                                    <label for="lat">Latitude (opsional)</label>
-                                    <input type="number" id="lat" name="lat" step="any" value="-7.8343462" disabled/>
+                                    <div class="latitude">
+                                        <label for="lat">Latitude (opsional)</label>
+                                        <input type="number" id="lat" name="lat" step="any" value="-7.8343462" disabled/>
+                                    </div>
                                 
-                                    <label for="lon">Longitude (opsional)</label>
-                                    <input type="number" id="lon" name="lon" step="any" value="110.38125" disabled/>
+                                    <div class="longitude">
+                                        <label for="lon">Longitude (opsional)</label>
+                                        <input type="number" id="lon" name="lon" step="any" value="110.38125" disabled/>
+                                    </div>
                                 </div>
                             </div>
 
