@@ -17,12 +17,12 @@ export default class AddStoryPage {
         return `
             <section class="add-story-container">
                 <div class="add-story__form">
-                    <h2>Add New Story</h2>
+                    <h1>Add New Story</h1>
                     <form id="story-form" enctype="multipart/form-data">
                     
                         <div class="form-group">
                             <div class="add-story__photo__buttons">
-                                <button id="photo-input-button" class="btn btn--outline" type="button"> Ambil Gambar </button>
+                                <button id="photo-input-button" class="btn add btn--outline" type="button"> Ambil Gambar </button>
                                 <input
                                     id="photo-input"
                                     class="add-form__photo__input"
@@ -33,7 +33,7 @@ export default class AddStoryPage {
                                     aria-multiline="true"
                                     aria-describedby="photo-more-info"
                                 >
-                                <button id="open-photo-camera-button" class="btn btn-outline" type="button">
+                                <button id="open-photo-camera-button" class="btn add btn-outline" type="button">
                                     Buka Kamera
                                 </button>
                             </div>
@@ -58,12 +58,12 @@ export default class AddStoryPage {
                         </div>
                         
                         <div class="form-group description">
-                            <label for="description">Deskripsi</label>
+                            <label for="description"><h2>Deskripsi</h2></label>
                             <textarea id="description" name="description" placeholder="Tulis deskripsi cerita..." required></textarea>
                         </div>
                     
                         <div class="form-group">
-                            <div class="add-form__location__title">Lokasi</div>
+                            <div class="add-form__location__title"><h2>Lokasi</h2></div>
 
                             <div class="add-form__location__container">
                                 <div class="add-form__location__map__container">
@@ -87,7 +87,7 @@ export default class AddStoryPage {
                         </div>
 
                         <div id="submit-button-container">
-                            <button id="submit-button" class="btn" type="submit">Kirim Cerita</button>
+                            <button id="submit-button" class="btn add" type="submit">Kirim Cerita</button>
                         </div>
                     </form>
                 </div>
@@ -113,11 +113,17 @@ export default class AddStoryPage {
 
             console.log('Form submitted:', this.#form);
 
+            const latValue = this.#form.elements.namedItem('lat')?.value ?? '';
+            const lonValue = this.#form.elements.namedItem('lon')?.value ?? '';
+
+            const lat = latValue === '' ? null : Number(latValue);
+            const lon = lonValue === '' ? null : Number(lonValue);
+
             const data = {
                 description: this.#form.elements.namedItem('description').value,
                 photo: this.#takenPhoto ? this.#takenPhoto.blob : null,
-                lat: this.#form.elements.namedItem('lat').value,
-                lon: this.#form.elements.namedItem('lon').value,
+                lat: lat,
+                lon: lon,
             }
 
             await this.#presenter.postNewStory(data);

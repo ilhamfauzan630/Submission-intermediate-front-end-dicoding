@@ -33,7 +33,7 @@ export function generateStoryItemTemplate({
     return `
         <div tabindex="0" class="story-item" data-storyid="${id}">
             <div class="story-item__header">
-                <h2 id="story-title" class="story-item__title">${name}</h2>
+                <h1 id="story-title" class="story-item__title">${name}</h1>
                 <div class="story-item__createdat">
                     <i class="fas fa-calendar-alt"></i> ${showFormattedDate(createdAt, 'id-ID')}
                 </div>
@@ -53,14 +53,14 @@ export function generateStoryItemTemplate({
 export function generateStoryListEmptyTemplate() {
     return `
         <div id="story-list-empty class="story-list__empty">
-            <h2>Tidak ada post yang tersedia</h2>
+            <h1>Tidak ada post yang tersedia</h1>
         </div>`;
 }
 
 export function generateStoryListErrorTemplate(message) {
     return `
         <div id="story-list-error" class="story-list__error">
-            <h2>Terjadi kesalahan</h2>
+            <h1>Terjadi kesalahan</h1>
             <p>${message}</p>
         </div>
     `;
@@ -89,7 +89,7 @@ export function generateStoryDetailTemplate({
 }) {
     return `
         <div class="story-detail__header">
-            <h2 class="story-detail__title">${name}</h2>
+            <h1 class="story-detail__title">${name}</h1>
             
             ${generateStoryDetailImageTemplate(photoUrl, name)}
         </div>

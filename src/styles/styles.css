@@ -207,7 +207,7 @@ input[type=text], input[type=email], input[type=password] {
   box-sizing: border-box;
 }
 
-button {
+.btn.add {
   width: 100%;
   background-color: #5459AC;
   color: white;
@@ -218,7 +218,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.btn.add:hover {
   background-color: #424692;
 }
 
