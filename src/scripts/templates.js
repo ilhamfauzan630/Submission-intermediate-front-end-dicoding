@@ -87,27 +87,42 @@ export function generateStoryDetailTemplate({
     lon,
     placeName,
 }) {
+    const hasCoordinates = lat && lon;
+
     return `
         <div class="story-detail__header">
             <h1 class="story-detail__title">${name}</h1>
-            
             ${generateStoryDetailImageTemplate(photoUrl, name)}
         </div>
+
         <div class="story-detail__body">
             <p class="story-detail__description">${description}</p>
             <div class="story-detail__createdat">
                 <i class="fas fa-calendar-alt"></i> ${showFormattedDate(createdAt, 'id-ID')}
             </div>
         </div>
-        <div class="story-detail__place-name">
-            ${placeName ? `<p class="story-detail__place-name-text">Lokasi: ${placeName}</p>` : ''}
+
+        <div class="story-detail__place-name" style="${hasCoordinates ? '' : 'display: none;'}">
+            ${placeName ? `<p class="story-detail__place-name-text"><h2 class="location__title">Lokasi: ${placeName}</h2></p>` : ''}
         </div>
+
         <div class="story-detail__location">
-            ${lat && lon ? `<p class="story-detail__coordinates">Koordinat: ${lat}, ${lon}</p>` : ''}
+            ${hasCoordinates ? `<p class="story-detail__coordinates">Koordinat: ${lat}, ${lon}</p>` : ''}
         </div>
-        <div class="location-map__container">
-            <div id="map" class="location-map"></div>
-            <div id="map-loading-container"></div>
-        </div>
-        `;
+
+        ${
+            hasCoordinates
+                ? `
+                    <div class="location-map__container">
+                        <div id="map" class="location-map"></div>
+                        <div id="map-loading-container"></div>
+                    </div>
+                `
+                : `
+                    <div class="location-map__not-available">
+                        <p>Lokasi tidak tersedia.</p>
+                    </div>
+                `
+        }
+    `;
 }

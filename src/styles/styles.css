@@ -470,6 +470,10 @@ i.loader-button {
   padding-bottom: 20px;
 }
 
+.location__title {
+  font-size: 1rem;
+}
+
 .story-detail__body {
   display: flex;
   flex-direction: row;
@@ -558,4 +562,12 @@ i.loader-button {
 .skip-link:focus,
 .skip-link:focus-within {
   transform: translateY(0%);
+}
+
+.location-map__not-available {
+  padding: 1rem;
+  background-color: #f2f2f2;
+  text-align: center;
+  color: #888;
+  font-style: italic;
 }

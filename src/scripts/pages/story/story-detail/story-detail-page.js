@@ -39,15 +39,24 @@ export default class StoryDetailPage {
             placeName: story.placeName,
         });
 
-        await this.#presenter.showStoryDetailMap();
+        
+        const hasValidCoordinates = story.lat != null && story.lon != null && story.lat !== '' && story.lon !== '';
+        
+        if (hasValidCoordinates) {
+            await this.#presenter.showStoryDetailMap();
 
-        if (this.#map) {
-            const reportCoordinate = [story.lat, story.lon];
-            const markerOptions = { alt: story.description };
-            const popupOptions = { content: story.description };
-            
-            this.#map.changeCamera(reportCoordinate);
-            this.#map.addMarker(reportCoordinate, markerOptions, popupOptions);
+            if (this.#map) {
+                const reportCoordinate = [story.lat, story.lon];
+                const markerOptions = {
+                    alt: story.description
+                };
+                const popupOptions = {
+                    content: story.description
+                };
+
+                this.#map.changeCamera(reportCoordinate);
+                this.#map.addMarker(reportCoordinate, markerOptions, popupOptions);
+            }
         }
     }
 
