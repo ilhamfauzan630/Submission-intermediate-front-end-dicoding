@@ -12,6 +12,7 @@ export function generateAuthenticatedNavigationListTemplate() {
         <li><a href="#/">Beranda</a></li>
         <li><a href="#/about">About</a></li>
         <li><a href="#/add-story"><i class="fas fa-plus"></i> Add Story</a></li>
+        <li id="push-notification-tools" class="push-notification-tools"></li>
         <li><a id="logout-button" class="logout-button" href="#/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
     `;
 }
@@ -33,7 +34,7 @@ export function generateStoryItemTemplate({
     return `
         <div tabindex="0" class="story-item" data-storyid="${id}">
             <div class="story-item__header">
-                <h1 id="story-title" class="story-item__title">${name}</h1>
+                <h2 id="story-title" class="story-item__title">${name}</h2>
                 <div class="story-item__createdat">
                     <i class="fas fa-calendar-alt"></i> ${showFormattedDate(createdAt, 'id-ID')}
                 </div>
@@ -124,5 +125,21 @@ export function generateStoryDetailTemplate({
                     </div>
                 `
         }
+    `;
+}
+
+export function generateSubscribeButtonTemplate() {
+    return `
+        <button id="subscribe-button" class="btn subscribe-button">
+            Subscribe <i class="fas fa-bell"></i>
+        </button>
+    `;
+}
+
+export function generateUnsubscribeButtonTemplate() {
+    return `
+        <button id="unsubscribe-button" class="btn unsubscribe-button">
+            Unsubscribe <i class="fas fa-bell-slash"></i>
+        </button>
     `;
 }
