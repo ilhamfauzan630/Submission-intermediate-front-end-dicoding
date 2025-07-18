@@ -120,7 +120,7 @@ class App {
       scrollTo({ top: 0, behavior: 'instant' });
       this.#setupNavigationList();
 
-      if (isServiceWorkerAvailable()) {
+      if (isServiceWorkerAvailable() && getAccessToken()) {
         this.#setupPushNotification();
       }
     });

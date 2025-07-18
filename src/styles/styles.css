@@ -213,7 +213,7 @@ input[type=text], input[type=email], input[type=password] {
   box-sizing: border-box;
 }
 
-.btn.add {
+.btn {
   width: 100%;
   background-color: #5459AC;
   color: white;
@@ -224,8 +224,14 @@ input[type=text], input[type=email], input[type=password] {
   cursor: pointer;
 }
 
-.btn.add:hover {
+.btn {
   background-color: #424692;
+}
+
+.register-link,
+.login-link {
+  font-size: 0.7rem;
+  text-align: center;
 }
 
 .btn.subscribe-button {
@@ -614,4 +620,10 @@ i.loader-button {
   padding-block: 20px;
   color: white;
   text-align: center;
+}
+
+.story-list__error {
+  color: white;
+  text-align: center;
+  padding: 70px 0;
 }

@@ -2,6 +2,7 @@ import { showFormattedDate } from './utils';
 
 export function generateUnauthenticatedNavigationListTemplate() {
     return `
+        <li id="push-notification-tools" class="push-notification-tools"></li>
         <li><a href="#/login">Login</a></li>
         <li><a href="#/register">Register</a></li>
     `;
@@ -43,7 +44,7 @@ export function generateStoryItemTemplate({
                 <div id="story-description" class="story-item__description">
                     ${description}
                 </div>
-                <a class="btn story-item__read-more" href="#/stories/${id}">
+                <a class="story-item__read-more" href="#/stories/${id}">
                     <img class="story-item__image" src="${photoUrl}" alt="${name}">
                 </a>
             </div>

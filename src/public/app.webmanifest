@@ -1,0 +1,66 @@
+{
+    "id": "/",
+    "start_url": "/",
+    "scope": "/",
+    "name": "Story App",
+    "short_name": "StoryApp",
+    "description": "Aplikasi berbagi cerita dengan foto dan lokasi yang memungkinkan pengguna untuk melihat, menambahkan, dan menjelajahi cerita-cerita dari berbagai tempat di Indonesia.",
+    "display": "standalone",
+    "background_color": "#FFFFFF",
+    "theme_color": "#2563eb",
+    "icons": [{
+        "src": "images/logo.png",
+        "type": "image/png",
+        "sizes": "512x512",
+        "purpose": "any"
+    }],
+    "screenshots": [{
+            "src": "images/screenshots/storyapp_001.jpg",
+            "sizes": "1920x1043",
+            "type": "image/jpg",
+            "form_factor": "wide"
+        },
+        {
+            "src": "images/screenshots/storyapp_002.jpg",
+            "sizes": "1920x1043",
+            "type": "image/jpg",
+            "form_factor": "wide"
+        },
+        {
+            "src": "images/screenshots/storyapp_003.jpg",
+            "sizes": "1920x1043",
+            "type": "image/jpg",
+            "form_factor": "wide"
+        },
+        {
+            "src": "images/screenshots/storyapp_001.jpg",
+            "sizes": "1080x2280",
+            "type": "image/jpg",
+            "form_factor": "narrow"
+        },
+        {
+            "src": "images/screenshots/storyapp_002.jpg",
+            "sizes": "1080x2280",
+            "type": "image/jpg",
+            "form_factor": "narrow"
+        },
+        {
+            "src": "images/screenshots/storyapp_003.jpg",
+            "sizes": "1080x2280",
+            "type": "image/jpg",
+            "form_factor": "narrow"
+        }
+    ],
+    "shortcuts": [{
+            "name": "Add story",
+            "short_name": "New",
+            "description": "Upload new story",
+            "url": "/#/add-story",
+            "icons": [{
+                "src": "images/logo.png",
+                "type": "image/png",
+                "sizes": "512x512"
+            }]
+        }
+    ]
+}

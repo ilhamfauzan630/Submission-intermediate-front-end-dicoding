@@ -87,7 +87,7 @@ export default class AddStoryPage {
                         </div>
 
                         <div id="submit-button-container">
-                            <button id="submit-button" class="btn add" type="submit">Kirim Cerita</button>
+                            <button id="submit-button" class="btn" type="submit">Kirim Cerita</button>
                         </div>
                     </form>
                 </div>

@@ -78,15 +78,15 @@ export default class RegisterPage {
 
     showSubmitLoadingButton() {
         document.getElementById('submit-button-container').innerHTML = `
-            <button class="btn" type="submit" disabled>
-                <i class="fas fa-spinner loader-button"></i> Daftar akun
-            </button>
+        <button class="btn" type="submit" disabled>
+            <i class="fas fa-spinner loader-button"></i> Masuk
+        </button>
         `;
     }
 
     hideSubmitLoadingButton() {
         document.getElementById('submit-button-container').innerHTML = `
-            <button class="btn" type="submit">Daftar akun</button>
+            <button class="btn" type="submit">Masuk</button>
         `;
     }
 }
