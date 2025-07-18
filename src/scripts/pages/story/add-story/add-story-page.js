@@ -258,7 +258,7 @@ export default class AddStoryPage {
         console.log(message);
         this.clearForm();
 
-        location.href = '/Submission-intermediate-front-end-dicoding/';
+        location.hash = '/';
     }
 
     storeFailed(message) {

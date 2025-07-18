@@ -56,7 +56,9 @@ export function checkAuthenticatedRoute(page) {
     const isLogin = !!getAccessToken();
 
     if (!isLogin) {
-        location.hash = '/login';
+        setTimeout(() => {
+            window.location.hash = '/login';
+        }, 0);
         return null;
     }
 
