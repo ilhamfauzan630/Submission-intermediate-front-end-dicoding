@@ -15,6 +15,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     skipLinkButton: document.getElementById('skip-link'),
   });
   
+  window.addEventListener('hashchange', async () => {
+    await app.renderPage();
+
+    Camera.stopAllStreams();
+  });
+  
   await app.renderPage();
 
   await registerServiceWorker();
@@ -22,9 +28,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     // for demonstration purpose-only
   console.log('Berhasil mendaftarkan service worker.');
 
-  window.addEventListener('hashchange', async () => {
-    await app.renderPage();
-
-    Camera.stopAllStreams();
-  });
 });
