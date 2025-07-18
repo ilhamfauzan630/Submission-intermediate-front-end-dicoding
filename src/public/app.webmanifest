@@ -1,7 +1,7 @@
 {
-    "id": "/",
-    "start_url": "/",
-    "scope": "/",
+    "id": "/Submission-intermediate-front-end-dicoding/",
+    "start_url": "/Submission-intermediate-front-end-dicoding/#/",
+    "scope": "/Submission-intermediate-front-end-dicoding/",
     "name": "Story App",
     "short_name": "StoryApp",
     "description": "Aplikasi berbagi cerita dengan foto dan lokasi yang memungkinkan pengguna untuk melihat, menambahkan, dan menjelajahi cerita-cerita dari berbagai tempat di Indonesia.",
@@ -55,7 +55,7 @@
             "name": "Add story",
             "short_name": "New",
             "description": "Upload new story",
-            "url": "/#/add-story",
+            "url": "/Submission-intermediate-front-end-dicoding/#/add-story",
             "icons": [{
                 "src": "images/logo.png",
                 "type": "image/png",

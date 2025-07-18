@@ -1,2 +1,2 @@
-APP_URL=<url_aplikasi>
+APP_URL=https://ilhamfauzan630.github.io/Submission-intermediate-front-end-dicoding/
 MAP_SERVICE_API_KEY=UxncPsEdJTGpPio3qYrH
