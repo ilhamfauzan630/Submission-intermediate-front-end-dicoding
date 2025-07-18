@@ -12,6 +12,7 @@ export function generateAuthenticatedNavigationListTemplate() {
     return `
         <li><a href="#/">Beranda</a></li>
         <li><a href="#/about">About</a></li>
+        <li><a href="#/bookmark">Bookmark</a></li>
         <li><a href="#/add-story"><i class="fas fa-plus"></i> Add Story</a></li>
         <li id="push-notification-tools" class="push-notification-tools"></li>
         <li><a id="logout-button" class="logout-button" href="#/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
@@ -54,15 +55,15 @@ export function generateStoryItemTemplate({
 
 export function generateStoryListEmptyTemplate() {
     return `
-        <div id="story-list-empty class="story-list__empty">
-            <h1>Tidak ada post yang tersedia</h1>
+        <div id="story-list-empty" class="story-list__empty">
+            <h2>Tidak ada post yang tersedia</h2>
         </div>`;
 }
 
 export function generateStoryListErrorTemplate(message) {
     return `
         <div id="story-list-error" class="story-list__error">
-            <h1>Terjadi kesalahan</h1>
+            <h2>Terjadi kesalahan</h2>
             <p>${message}</p>
         </div>
     `;
@@ -93,7 +94,10 @@ export function generateStoryDetailTemplate({
 
     return `
         <div class="story-detail__header">
-            <h1 class="story-detail__title">${name}</h1>
+            <div class="story-detail__title-container"> 
+                <h1 class="story-detail__title">${name}</h1>
+                <div id="save-actions-container"></div>
+            </div>
             ${generateStoryDetailImageTemplate(photoUrl, name)}
         </div>
 
@@ -141,6 +145,22 @@ export function generateUnsubscribeButtonTemplate() {
     return `
         <button id="unsubscribe-button" class="btn unsubscribe-button">
             Unsubscribe <i class="fas fa-bell-slash"></i>
+        </button>
+    `;
+}
+
+export function generateSaveStoryButtonTemplate() {
+    return `
+        <button id="story-detail-save" class="btn btn-transparent">
+            Add Bookmark <i class="far fa-bookmark"></i>
+        </button>
+    `;
+}
+
+export function generateRemoveStoryButtonTemplate() {
+    return `
+        <button id="story-detail-remove" class="btn btn-transparent">
+            Remove Bookmark <i class="fas fa-bookmark"></i>
         </button>
     `;
 }

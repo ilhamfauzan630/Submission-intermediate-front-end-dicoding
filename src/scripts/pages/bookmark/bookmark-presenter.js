@@ -1,4 +1,6 @@
-export default class HomePresenter {
+import { storyMapper } from '../../data/api-mapper';
+
+export default class BookmarkPresenter {
     #view;
     #model;
 
@@ -10,13 +12,10 @@ export default class HomePresenter {
     async initialGalleryAndMap() {
         this.#view.showLoading();
         try {
-            const response = await this.#model.getAllStories();
-
-            if (!response.ok) {
-                console.error('initialGalleryAndMap: error:', response);
-                this.#view.populateStoryListError(response.message);
-            }
-            this.#view.populateStoryList(response.message, response.listStory);
+            const stories = await this.#model.getAllStories();
+            
+            const message = 'Success to load bookmarked stories';
+            this.#view.populateStoryList(message, stories);
         } catch (error) {
             console.error('initialGalleryAndMap: error:', error);
             this.#view.populateStoryListError(error.message);
