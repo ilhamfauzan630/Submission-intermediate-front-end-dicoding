@@ -1,7 +1,7 @@
 {
-    "id": "/",
-    "start_url": "/",
-    "scope": "/",
+    "id": "/Submission-intermediate-front-end-dicoding/",
+    "start_url": "/Submission-intermediate-front-end-dicoding/#/",
+    "scope": "//Submission-intermediate-front-end-dicoding/",
     "name": "Story App",
     "short_name": "StoryApp",
     "description": "Aplikasi berbagi cerita dengan foto dan lokasi yang memungkinkan pengguna untuk melihat, menambahkan, dan menjelajahi cerita-cerita dari berbagai tempat di Indonesia.",
